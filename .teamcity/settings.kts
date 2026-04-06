@@ -5,7 +5,7 @@ import jetbrains.buildServer.configs.kotlin.project
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
 import jetbrains.buildServer.configs.kotlin.vcs.GitVcsRoot
 
-version = "2024.03"
+version = "2025.11"
 
 project {
     params {
@@ -23,7 +23,7 @@ project {
 
 object ExamDevops6Vcs : GitVcsRoot({
     name = "ExamDevops6_VCS_%student.tag%"
-    url = "https://github.com/replace-me/ExamDevops6.git"
+    url = "https://github.com/1maxi1/ExamDevops67.git"
     branch = "refs/heads/main"
     branchSpec = """
         +:refs/heads/main
