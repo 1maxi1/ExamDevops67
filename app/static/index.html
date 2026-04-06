@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Проездной билет</title>
+  <style>
+    :root {
+      --bg: #f6efe5;
+      --panel: rgba(255, 250, 244, 0.92);
+      --panel-strong: #fffaf4;
+      --text: #1f1e1a;
+      --muted: #655c52;
+      --accent: #d0502a;
+      --accent-dark: #8c3118;
+      --line: rgba(89, 68, 50, 0.15);
+      --success: #1f7a52;
+      --error: #a13030;
+      --shadow: 0 20px 60px rgba(83, 52, 26, 0.12);
+      --radius: 26px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(208, 80, 42, 0.22), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(31, 122, 82, 0.18), transparent 28%),
+        linear-gradient(135deg, #f7efe3 0%, #efe0cd 48%, #f8f1e8 100%);
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 24px auto;
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      border-radius: 34px;
+      background: rgba(255, 248, 240, 0.72);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .hero-card,
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      padding: 28px;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -80px -90px auto;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(208, 80, 42, 0.2), rgba(140, 49, 24, 0.05));
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(208, 80, 42, 0.1);
+      color: var(--accent-dark);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+
+    .lead {
+      max-width: 620px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .stat {
+      min-width: 148px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(89, 68, 50, 0.08);
+    }
+
+    .stat b {
+      display: block;
+      font-size: 26px;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .balance-card {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .balance-card h2,
+    .section-head h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .caption {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid rgba(89, 68, 50, 0.16);
+      border-radius: 16px;
+      background: var(--panel-strong);
+      color: var(--text);
+      font-size: 16px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: rgba(208, 80, 42, 0.72);
+      transform: translateY(-1px);
+    }
+
+    button {
+      border: 0;
+      border-radius: 16px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, var(--accent), #ea7b38);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 16px 28px rgba(208, 80, 42, 0.22);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.75;
+      transform: none;
+    }
+
+    .status {
+      min-height: 22px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .status.success {
+      color: var(--success);
+    }
+
+    .status.error {
+      color: var(--error);
+    }
+
+    .ticket {
+      display: none;
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(31, 122, 82, 0.1), rgba(255, 255, 255, 0.88));
+      border: 1px solid rgba(31, 122, 82, 0.16);
+    }
+
+    .ticket.visible {
+      display: block;
+    }
+
+    .ticket-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .ticket-cell {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(89, 68, 50, 0.08);
+    }
+
+    .ticket-cell span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .ticket-cell strong {
+      font-size: 20px;
+      word-break: break-word;
+    }
+
+    .changes {
+      margin-top: 22px;
+      padding: 24px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-end;
+      margin-bottom: 18px;
+    }
+
+    .refresh {
+      width: auto;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--text);
+      border: 1px solid rgba(89, 68, 50, 0.12);
+      box-shadow: none;
+    }
+
+    .changes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .change-card {
+      min-height: 190px;
+      padding: 18px;
+      border-radius: 22px;
+      background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(244, 235, 225, 0.76)),
+        var(--panel);
+      border: 1px solid rgba(89, 68, 50, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transform: translateY(0);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .change-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 36px rgba(74, 47, 24, 0.14);
+    }
+
+    .change-id {
+      display: inline-flex;
+      width: fit-content;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(208, 80, 42, 0.11);
+      color: var(--accent-dark);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .change-card h3 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .line-chip {
+      margin-top: auto;
+      width: fit-content;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(31, 122, 82, 0.1);
+      color: #195f40;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .skeleton {
+      min-height: 150px;
+      border-radius: 22px;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.5),
+        rgba(241, 229, 214, 0.88),
+        rgba(255, 255, 255, 0.5)
+      );
+      background-size: 200% 100%;
+      animation: pulse 1.5s infinite linear;
+    }
+
+    @keyframes pulse {
+      from { background-position: 200% 0; }
+      to { background-position: -200% 0; }
+    }
+
+    @media (max-width: 940px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .changes-grid,
+      .ticket-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: min(100% - 16px, 1120px);
+        margin: 8px auto;
+        padding: 14px;
+        border-radius: 24px;
+      }
+
+      .hero-card,
+      .panel,
+      .changes {
+        padding: 18px;
+        border-radius: 22px;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .lead {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <article class="hero-card">
+        <div class="eyebrow">Metro Pass Live</div>
+        <h1>Приложение проездного билета</h1>
+        <p class="lead">
+          Проверяйте баланс по номеру телефона и SMS-коду, а также следите за
+          актуальными изменениями движения в метро на одной странице.
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <b id="changes-count">0</b>
+            <span>изменения на линиях</span>
+          </div>
+          <div class="stat">
+            <b id="service-status">OK</b>
+            <span>статус сервиса</span>
+          </div>
+        </div>
+      </article>
+
+      <aside class="panel balance-card">
+        <div>
+          <h2>Проверка проездного</h2>
+          <p class="caption">
+            Для доступа к балансу введите номер телефона и код из SMS.
+          </p>
+        </div>
+
+        <form id="balance-form">
+          <label>
+            Телефон
+            <input id="phone" name="phone" placeholder="+79846274627" required>
+          </label>
+          <label>
+            SMS-код
+            <input id="sms_code" name="sms_code" placeholder="1420" required>
+          </label>
+          <button id="balance-submit" type="submit">Показать баланс</button>
+        </form>
+
+        <div id="balance-status" class="status" aria-live="polite"></div>
+
+        <section id="ticket-result" class="ticket" aria-live="polite">
+          <h3>Данные проездного</h3>
+          <div class="ticket-grid">
+            <div class="ticket-cell">
+              <span>ID билета</span>
+              <strong id="ticket-id">-</strong>
+            </div>
+            <div class="ticket-cell">
+              <span>Телефон</span>
+              <strong id="ticket-phone">-</strong>
+            </div>
+            <div class="ticket-cell">
+              <span>Баланс</span>
+              <strong id="ticket-balance">-</strong>
+            </div>
+            <div class="ticket-cell">
+              <span>Последний вход</span>
+              <strong id="ticket-station">-</strong>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </section>
+
+    <section class="panel changes">
+      <div class="section-head">
+        <div>
+          <h2>Изменения движения в метро</h2>
+          <p class="caption">
+            Список загружается из API и обновляется по кнопке без перезагрузки страницы.
+          </p>
+        </div>
+        <button id="refresh-changes" class="refresh" type="button">Обновить</button>
+      </div>
+
+      <div id="changes-grid" class="changes-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script>
+    const changesGrid = document.getElementById("changes-grid");
+    const changesCount = document.getElementById("changes-count");
+    const serviceStatus = document.getElementById("service-status");
+    const balanceForm = document.getElementById("balance-form");
+    const balanceStatus = document.getElementById("balance-status");
+    const balanceSubmit = document.getElementById("balance-submit");
+    const ticketResult = document.getElementById("ticket-result");
+    const refreshChangesButton = document.getElementById("refresh-changes");
+
+    function setStatus(element, message, type = "") {
+      element.textContent = message;
+      element.className = `status ${type}`.trim();
+    }
+
+    function renderSkeletons() {
+      changesGrid.innerHTML = "";
+      for (let index = 0; index < 3; index += 1) {
+        const item = document.createElement("div");
+        item.className = "skeleton";
+        changesGrid.appendChild(item);
+      }
+    }
+
+    function renderChanges(changes) {
+      changesGrid.innerHTML = "";
+      changesCount.textContent = changes.length;
+
+      if (!changes.length) {
+        const empty = document.createElement("div");
+        empty.className = "change-card";
+        empty.innerHTML = "<h3>Изменения не найдены</h3><p class='caption'>Сейчас в базе нет записей.</p>";
+        changesGrid.appendChild(empty);
+        return;
+      }
+
+      changes.forEach((change) => {
+        const card = document.createElement("article");
+        card.className = "change-card";
+        card.innerHTML = `
+          <div class="change-id">Изменение #${change.id}</div>
+          <h3>${change.description}</h3>
+          <div class="line-chip">${change.affected_line}</div>
+        `;
+        changesGrid.appendChild(card);
+      });
+    }
+
+    async function loadHealth() {
+      try {
+        const response = await fetch("/health");
+        serviceStatus.textContent = response.ok ? "ONLINE" : "WARN";
+      } catch (error) {
+        serviceStatus.textContent = "OFFLINE";
+      }
+    }
+
+    async function loadChanges() {
+      renderSkeletons();
+      refreshChangesButton.disabled = true;
+
+      try {
+        const response = await fetch("/api/v1/metro/changes");
+        if (!response.ok) {
+          throw new Error("Не удалось загрузить изменения.");
+        }
+
+        const changes = await response.json();
+        renderChanges(changes);
+      } catch (error) {
+        changesGrid.innerHTML = `
+          <article class="change-card">
+            <h3>Ошибка загрузки</h3>
+            <p class="caption">${error.message}</p>
+          </article>
+        `;
+      } finally {
+        refreshChangesButton.disabled = false;
+      }
+    }
+
+    balanceForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      balanceSubmit.disabled = true;
+      ticketResult.classList.remove("visible");
+      setStatus(balanceStatus, "Проверяем данные...", "");
+
+      const payload = {
+        phone: document.getElementById("phone").value.trim(),
+        sms_code: document.getElementById("sms_code").value.trim()
+      };
+
+      try {
+        const response = await fetch("/api/v1/travel-card/balance", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.detail || "Ошибка авторизации.");
+        }
+
+        document.getElementById("ticket-id").textContent = data.ticket_id;
+        document.getElementById("ticket-phone").textContent = data.phone;
+        document.getElementById("ticket-balance").textContent = `${data.balance} ₽`;
+        document.getElementById("ticket-station").textContent = data.last_entry_station;
+
+        ticketResult.classList.add("visible");
+        setStatus(balanceStatus, "Баланс успешно получен.", "success");
+      } catch (error) {
+        setStatus(balanceStatus, error.message, "error");
+      } finally {
+        balanceSubmit.disabled = false;
+      }
+    });
+
+    refreshChangesButton.addEventListener("click", loadChanges);
+
+    loadHealth();
+    loadChanges();
+  </script>
+</body>
+</html>
