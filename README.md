@@ -89,3 +89,4 @@ python -m pytest
 
 - The main branch is used for the deployment pipeline in TeamCity.
 - Feature and fix branches are intended for build-and-check runs without deploy.
+- The healthcheck endpoint can be used for quick availability checks after deploy.
