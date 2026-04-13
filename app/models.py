@@ -6,19 +6,18 @@ class Base(DeclarativeBase):
     pass
 
 
-class MetroChange(Base):
-    __tablename__ = "metro_changes"
+class WorkshopClass(Base):
+    __tablename__ = "workshop_classes"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    description: Mapped[str] = mapped_column(String(255), nullable=False)
-    affected_line: Mapped[str] = mapped_column(String(100), nullable=False)
+    name: Mapped[str] = mapped_column(String(255), nullable=False)
+    price: Mapped[int] = mapped_column(Integer, nullable=False)
 
 
-class TravelCard(Base):
-    __tablename__ = "travel_cards"
+class WorkshopRegistration(Base):
+    __tablename__ = "workshop_registrations"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    phone: Mapped[str] = mapped_column(String(20), nullable=False, index=True)
     sms_code: Mapped[str] = mapped_column(String(10), nullable=False, index=True)
-    balance: Mapped[int] = mapped_column(Integer, nullable=False)
-    last_entry_station: Mapped[str] = mapped_column(String(100), nullable=False)
+    workshop_name: Mapped[str] = mapped_column(String(255), nullable=False)
+    registration_time: Mapped[str] = mapped_column(String(20), nullable=False)

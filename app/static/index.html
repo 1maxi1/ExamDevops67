@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Проездной билет</title>
+  <title>Гончарная мастерская</title>
   <style>
     :root {
-      --bg: #f6efe5;
-      --panel: rgba(255, 250, 244, 0.92);
-      --panel-strong: #fffaf4;
-      --text: #1f1e1a;
-      --muted: #655c52;
-      --accent: #d0502a;
-      --accent-dark: #8c3118;
-      --line: rgba(89, 68, 50, 0.15);
-      --success: #1f7a52;
-      --error: #a13030;
-      --shadow: 0 20px 60px rgba(83, 52, 26, 0.12);
+      --bg: #f5ede3;
+      --panel: rgba(255, 250, 244, 0.9);
+      --panel-strong: #fff9f2;
+      --text: #221d18;
+      --muted: #66574a;
+      --accent: #b55c30;
+      --accent-dark: #7a3518;
+      --accent-soft: rgba(181, 92, 48, 0.12);
+      --line: rgba(86, 63, 44, 0.14);
+      --success: #226f4c;
+      --error: #a13434;
+      --shadow: 0 24px 50px rgba(91, 56, 27, 0.14);
       --radius: 26px;
     }
 
@@ -27,28 +28,28 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: "Segoe UI", "Trebuchet MS", sans-serif;
       color: var(--text);
+      font-family: "Segoe UI", "Trebuchet MS", sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(208, 80, 42, 0.22), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(31, 122, 82, 0.18), transparent 28%),
-        linear-gradient(135deg, #f7efe3 0%, #efe0cd 48%, #f8f1e8 100%);
+        radial-gradient(circle at top left, rgba(181, 92, 48, 0.24), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(34, 111, 76, 0.16), transparent 26%),
+        linear-gradient(140deg, #f7efe4 0%, #ebdac6 50%, #f8f3ec 100%);
     }
 
     .shell {
       width: min(1120px, calc(100% - 32px));
-      margin: 24px auto;
+      margin: 22px auto;
       padding: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.65);
       border-radius: 34px;
-      background: rgba(255, 248, 240, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.64);
+      background: rgba(255, 249, 242, 0.72);
       backdrop-filter: blur(18px);
       box-shadow: var(--shadow);
     }
 
     .hero {
       display: grid;
-      grid-template-columns: 1.25fr 0.95fr;
+      grid-template-columns: 1.15fr 0.95fr;
       gap: 22px;
       align-items: stretch;
     }
@@ -67,23 +68,22 @@
       padding: 28px;
     }
 
-    .hero-card::before {
+    .hero-card::after {
       content: "";
       position: absolute;
-      inset: auto -80px -90px auto;
-      width: 240px;
-      height: 240px;
+      right: -60px;
+      bottom: -70px;
+      width: 220px;
+      height: 220px;
       border-radius: 50%;
-      background: linear-gradient(135deg, rgba(208, 80, 42, 0.2), rgba(140, 49, 24, 0.05));
+      background: linear-gradient(135deg, rgba(181, 92, 48, 0.2), rgba(122, 53, 24, 0.04));
     }
 
     .eyebrow {
       display: inline-flex;
-      gap: 8px;
-      align-items: center;
       padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(208, 80, 42, 0.1);
+      background: var(--accent-soft);
       color: var(--accent-dark);
       font-size: 13px;
       font-weight: 700;
@@ -93,7 +93,7 @@
 
     h1 {
       margin: 18px 0 12px;
-      font-size: clamp(32px, 5vw, 56px);
+      font-size: clamp(34px, 5vw, 58px);
       line-height: 0.95;
       letter-spacing: -0.04em;
     }
@@ -103,7 +103,7 @@
       margin: 0;
       color: var(--muted);
       font-size: 18px;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     .hero-stats {
@@ -118,7 +118,7 @@
       padding: 14px 16px;
       border-radius: 18px;
       background: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(89, 68, 50, 0.08);
+      border: 1px solid rgba(86, 63, 44, 0.08);
     }
 
     .stat b {
@@ -132,28 +132,26 @@
       font-size: 14px;
     }
 
-    .balance-card {
+    .panel {
       padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
     }
 
-    .balance-card h2,
+    .panel h2,
     .section-head h2 {
       margin: 0;
       font-size: 24px;
     }
 
     .caption {
-      margin: 0;
+      margin: 10px 0 0;
       color: var(--muted);
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
     form {
       display: grid;
       gap: 14px;
+      margin-top: 18px;
     }
 
     label {
@@ -166,8 +164,8 @@
     input {
       width: 100%;
       padding: 14px 16px;
-      border: 1px solid rgba(89, 68, 50, 0.16);
       border-radius: 16px;
+      border: 1px solid rgba(86, 63, 44, 0.16);
       background: var(--panel-strong);
       color: var(--text);
       font-size: 16px;
@@ -176,7 +174,7 @@
 
     input:focus {
       outline: none;
-      border-color: rgba(208, 80, 42, 0.72);
+      border-color: rgba(181, 92, 48, 0.7);
       transform: translateY(-1px);
     }
 
@@ -184,13 +182,13 @@
       border: 0;
       border-radius: 16px;
       padding: 14px 18px;
-      background: linear-gradient(135deg, var(--accent), #ea7b38);
+      background: linear-gradient(135deg, var(--accent), #d1824f);
       color: #fff;
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 16px 28px rgba(208, 80, 42, 0.22);
+      box-shadow: 0 16px 26px rgba(181, 92, 48, 0.24);
+      transition: transform 0.2s ease, opacity 0.2s ease;
     }
 
     button:hover {
@@ -198,13 +196,14 @@
     }
 
     button:disabled {
-      cursor: wait;
       opacity: 0.75;
       transform: none;
+      cursor: wait;
     }
 
     .status {
       min-height: 22px;
+      margin-top: 12px;
       font-size: 14px;
       font-weight: 600;
     }
@@ -217,45 +216,46 @@
       color: var(--error);
     }
 
-    .ticket {
+    .card {
       display: none;
+      margin-top: 16px;
       padding: 18px;
       border-radius: 22px;
-      background: linear-gradient(135deg, rgba(31, 122, 82, 0.1), rgba(255, 255, 255, 0.88));
-      border: 1px solid rgba(31, 122, 82, 0.16);
+      background: linear-gradient(135deg, rgba(34, 111, 76, 0.08), rgba(255, 255, 255, 0.88));
+      border: 1px solid rgba(34, 111, 76, 0.14);
     }
 
-    .ticket.visible {
+    .card.visible {
       display: block;
     }
 
-    .ticket-grid {
+    .card-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
       margin-top: 14px;
     }
 
-    .ticket-cell {
+    .card-cell {
       padding: 14px;
       border-radius: 16px;
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(89, 68, 50, 0.08);
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(86, 63, 44, 0.08);
     }
 
-    .ticket-cell span {
+    .card-cell span {
       display: block;
       color: var(--muted);
       font-size: 13px;
       margin-bottom: 6px;
     }
 
-    .ticket-cell strong {
+    .card-cell strong {
       font-size: 20px;
       word-break: break-word;
     }
 
-    .changes {
+    .workshops {
       margin-top: 22px;
       padding: 24px;
     }
@@ -263,8 +263,8 @@
     .section-head {
       display: flex;
       justify-content: space-between;
-      gap: 16px;
       align-items: flex-end;
+      gap: 16px;
       margin-bottom: 18px;
     }
 
@@ -274,66 +274,63 @@
       border-radius: 14px;
       background: rgba(255, 255, 255, 0.82);
       color: var(--text);
-      border: 1px solid rgba(89, 68, 50, 0.12);
+      border: 1px solid rgba(86, 63, 44, 0.12);
       box-shadow: none;
     }
 
-    .changes-grid {
+    .grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
     }
 
-    .change-card {
-      min-height: 190px;
+    .workshop-card {
+      min-height: 210px;
       padding: 18px;
       border-radius: 22px;
-      background:
-        linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(244, 235, 225, 0.76)),
-        var(--panel);
-      border: 1px solid rgba(89, 68, 50, 0.1);
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.94), rgba(244, 234, 224, 0.78));
+      border: 1px solid rgba(86, 63, 44, 0.1);
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      transform: translateY(0);
+      gap: 14px;
       transition: transform 0.22s ease, box-shadow 0.22s ease;
     }
 
-    .change-card:hover {
+    .workshop-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 18px 36px rgba(74, 47, 24, 0.14);
+      box-shadow: 0 18px 36px rgba(91, 56, 27, 0.15);
     }
 
-    .change-id {
+    .badge {
       display: inline-flex;
       width: fit-content;
       padding: 8px 10px;
       border-radius: 999px;
-      background: rgba(208, 80, 42, 0.11);
+      background: var(--accent-soft);
       color: var(--accent-dark);
       font-weight: 700;
       font-size: 13px;
     }
 
-    .change-card h3 {
+    .workshop-card h3 {
       margin: 0;
-      font-size: 20px;
+      font-size: 22px;
       line-height: 1.2;
     }
 
-    .line-chip {
+    .price {
       margin-top: auto;
       width: fit-content;
-      padding: 9px 12px;
+      padding: 10px 12px;
       border-radius: 999px;
-      background: rgba(31, 122, 82, 0.1);
-      color: #195f40;
+      background: rgba(34, 111, 76, 0.1);
+      color: #1c5d40;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 15px;
     }
 
     .skeleton {
-      min-height: 150px;
+      min-height: 160px;
       border-radius: 22px;
       background: linear-gradient(
         90deg,
@@ -355,8 +352,8 @@
         grid-template-columns: 1fr;
       }
 
-      .changes-grid,
-      .ticket-grid {
+      .grid,
+      .card-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -371,13 +368,13 @@
 
       .hero-card,
       .panel,
-      .changes {
+      .workshops {
         padding: 18px;
         border-radius: 22px;
       }
 
       h1 {
-        font-size: 34px;
+        font-size: 36px;
       }
 
       .lead {
@@ -390,16 +387,16 @@
   <main class="shell">
     <section class="hero">
       <article class="hero-card">
-        <div class="eyebrow">Metro Pass Live</div>
-        <h1>Приложение проездного билета</h1>
+        <div class="eyebrow">Pottery Studio</div>
+        <h1>Приложение мастер-классов гончарной мастерской</h1>
         <p class="lead">
-          Проверяйте баланс по номеру телефона и SMS-коду, а также следите за
-          актуальными изменениями движения в метро на одной странице.
+          На одной странице можно посмотреть список мастер-классов, их стоимость
+          и проверить информацию о своей записи по SMS-коду.
         </p>
         <div class="hero-stats">
           <div class="stat">
-            <b id="changes-count">0</b>
-            <span>изменения на линиях</span>
+            <b id="workshops-count">0</b>
+            <span>мастер-класса в расписании</span>
           </div>
           <div class="stat">
             <b id="service-status">OK</b>
@@ -408,76 +405,74 @@
         </div>
       </article>
 
-      <aside class="panel balance-card">
+      <aside class="panel">
         <div>
-          <h2>Проверка проездного</h2>
+          <h2>Проверка записи</h2>
           <p class="caption">
-            Для доступа к балансу введите номер телефона и код из SMS.
+            Для получения информации о записи введите код из SMS. Если код есть в
+            базе, сервис вернёт название мастер-класса и время записи.
           </p>
         </div>
 
-        <form id="balance-form">
+        <form id="registration-form">
           <label>
-            Телефон
-            <input id="phone" name="phone" placeholder="+79846274627" required>
+            Код из SMS
+            <input id="sms_code" name="sms_code" placeholder="1871" required>
           </label>
-          <label>
-            SMS-код
-            <input id="sms_code" name="sms_code" placeholder="1420" required>
-          </label>
-          <button id="balance-submit" type="submit">Показать баланс</button>
+          <button id="registration-submit" type="submit">Проверить запись</button>
         </form>
 
-        <div id="balance-status" class="status" aria-live="polite"></div>
+        <div id="registration-status" class="status" aria-live="polite"></div>
 
-        <section id="ticket-result" class="ticket" aria-live="polite">
-          <h3>Данные проездного</h3>
-          <div class="ticket-grid">
-            <div class="ticket-cell">
-              <span>ID билета</span>
-              <strong id="ticket-id">-</strong>
+        <section id="registration-card" class="card" aria-live="polite">
+          <h3>Информация о записи</h3>
+          <div class="card-grid">
+            <div class="card-cell">
+              <span>ID записи</span>
+              <strong id="registration-id">-</strong>
             </div>
-            <div class="ticket-cell">
-              <span>Телефон</span>
-              <strong id="ticket-phone">-</strong>
+            <div class="card-cell">
+              <span>SMS-код</span>
+              <strong id="registration-code">-</strong>
             </div>
-            <div class="ticket-cell">
-              <span>Баланс</span>
-              <strong id="ticket-balance">-</strong>
+            <div class="card-cell">
+              <span>Мастер-класс</span>
+              <strong id="registration-workshop">-</strong>
             </div>
-            <div class="ticket-cell">
-              <span>Последний вход</span>
-              <strong id="ticket-station">-</strong>
+            <div class="card-cell">
+              <span>Время</span>
+              <strong id="registration-time">-</strong>
             </div>
           </div>
         </section>
       </aside>
     </section>
 
-    <section class="panel changes">
+    <section class="panel workshops">
       <div class="section-head">
         <div>
-          <h2>Изменения движения в метро</h2>
+          <h2>Список мастер-классов</h2>
           <p class="caption">
-            Список загружается из API и обновляется по кнопке без перезагрузки страницы.
+            Публичный список загружается из API и показывает не только названия,
+            но и стоимость каждого занятия.
           </p>
         </div>
-        <button id="refresh-changes" class="refresh" type="button">Обновить</button>
+        <button id="refresh-workshops" class="refresh" type="button">Обновить</button>
       </div>
 
-      <div id="changes-grid" class="changes-grid" aria-live="polite"></div>
+      <div id="workshops-grid" class="grid" aria-live="polite"></div>
     </section>
   </main>
 
   <script>
-    const changesGrid = document.getElementById("changes-grid");
-    const changesCount = document.getElementById("changes-count");
+    const workshopsGrid = document.getElementById("workshops-grid");
+    const workshopsCount = document.getElementById("workshops-count");
     const serviceStatus = document.getElementById("service-status");
-    const balanceForm = document.getElementById("balance-form");
-    const balanceStatus = document.getElementById("balance-status");
-    const balanceSubmit = document.getElementById("balance-submit");
-    const ticketResult = document.getElementById("ticket-result");
-    const refreshChangesButton = document.getElementById("refresh-changes");
+    const registrationForm = document.getElementById("registration-form");
+    const registrationStatus = document.getElementById("registration-status");
+    const registrationSubmit = document.getElementById("registration-submit");
+    const registrationCard = document.getElementById("registration-card");
+    const refreshWorkshopsButton = document.getElementById("refresh-workshops");
 
     function setStatus(element, message, type = "") {
       element.textContent = message;
@@ -485,35 +480,35 @@
     }
 
     function renderSkeletons() {
-      changesGrid.innerHTML = "";
+      workshopsGrid.innerHTML = "";
       for (let index = 0; index < 3; index += 1) {
         const item = document.createElement("div");
         item.className = "skeleton";
-        changesGrid.appendChild(item);
+        workshopsGrid.appendChild(item);
       }
     }
 
-    function renderChanges(changes) {
-      changesGrid.innerHTML = "";
-      changesCount.textContent = changes.length;
+    function renderWorkshops(workshops) {
+      workshopsGrid.innerHTML = "";
+      workshopsCount.textContent = workshops.length;
 
-      if (!changes.length) {
+      if (!workshops.length) {
         const empty = document.createElement("div");
-        empty.className = "change-card";
-        empty.innerHTML = "<h3>Изменения не найдены</h3><p class='caption'>Сейчас в базе нет записей.</p>";
-        changesGrid.appendChild(empty);
+        empty.className = "workshop-card";
+        empty.innerHTML = "<h3>Занятий пока нет</h3><p class='caption'>В базе нет доступных мастер-классов.</p>";
+        workshopsGrid.appendChild(empty);
         return;
       }
 
-      changes.forEach((change) => {
+      workshops.forEach((workshop) => {
         const card = document.createElement("article");
-        card.className = "change-card";
+        card.className = "workshop-card";
         card.innerHTML = `
-          <div class="change-id">Изменение #${change.id}</div>
-          <h3>${change.description}</h3>
-          <div class="line-chip">${change.affected_line}</div>
+          <div class="badge">Мастер-класс #${workshop.id}</div>
+          <h3>${workshop.name}</h3>
+          <div class="price">${workshop.price} ₽</div>
         `;
-        changesGrid.appendChild(card);
+        workshopsGrid.appendChild(card);
       });
     }
 
@@ -526,43 +521,42 @@
       }
     }
 
-    async function loadChanges() {
+    async function loadWorkshops() {
       renderSkeletons();
-      refreshChangesButton.disabled = true;
+      refreshWorkshopsButton.disabled = true;
 
       try {
-        const response = await fetch("/api/v1/metro/changes");
+        const response = await fetch("/api/v1/workshops");
         if (!response.ok) {
-          throw new Error("Не удалось загрузить изменения.");
+          throw new Error("Не удалось загрузить мастер-классы.");
         }
 
-        const changes = await response.json();
-        renderChanges(changes);
+        const workshops = await response.json();
+        renderWorkshops(workshops);
       } catch (error) {
-        changesGrid.innerHTML = `
-          <article class="change-card">
+        workshopsGrid.innerHTML = `
+          <article class="workshop-card">
             <h3>Ошибка загрузки</h3>
             <p class="caption">${error.message}</p>
           </article>
         `;
       } finally {
-        refreshChangesButton.disabled = false;
+        refreshWorkshopsButton.disabled = false;
       }
     }
 
-    balanceForm.addEventListener("submit", async (event) => {
+    registrationForm.addEventListener("submit", async (event) => {
       event.preventDefault();
-      balanceSubmit.disabled = true;
-      ticketResult.classList.remove("visible");
-      setStatus(balanceStatus, "Проверяем данные...", "");
+      registrationSubmit.disabled = true;
+      registrationCard.classList.remove("visible");
+      setStatus(registrationStatus, "Проверяем код...", "");
 
       const payload = {
-        phone: document.getElementById("phone").value.trim(),
         sms_code: document.getElementById("sms_code").value.trim()
       };
 
       try {
-        const response = await fetch("/api/v1/travel-card/balance", {
+        const response = await fetch("/api/v1/registrations/info", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
@@ -574,24 +568,24 @@
           throw new Error(data.detail || "Ошибка авторизации.");
         }
 
-        document.getElementById("ticket-id").textContent = data.ticket_id;
-        document.getElementById("ticket-phone").textContent = data.phone;
-        document.getElementById("ticket-balance").textContent = `${data.balance} ₽`;
-        document.getElementById("ticket-station").textContent = data.last_entry_station;
+        document.getElementById("registration-id").textContent = data.registration_id;
+        document.getElementById("registration-code").textContent = data.sms_code;
+        document.getElementById("registration-workshop").textContent = data.workshop_name;
+        document.getElementById("registration-time").textContent = data.registration_time;
 
-        ticketResult.classList.add("visible");
-        setStatus(balanceStatus, "Баланс успешно получен.", "success");
+        registrationCard.classList.add("visible");
+        setStatus(registrationStatus, "Запись успешно найдена.", "success");
       } catch (error) {
-        setStatus(balanceStatus, error.message, "error");
+        setStatus(registrationStatus, error.message, "error");
       } finally {
-        balanceSubmit.disabled = false;
+        registrationSubmit.disabled = false;
       }
     });
 
-    refreshChangesButton.addEventListener("click", loadChanges);
+    refreshWorkshopsButton.addEventListener("click", loadWorkshops);
 
     loadHealth();
-    loadChanges();
+    loadWorkshops();
   </script>
 </body>
 </html>

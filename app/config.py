@@ -4,9 +4,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    app_title: str = "Travel Card Service"
+    app_title: str = "Pottery Workshop Service"
     api_prefix: str = "/api/v1"
-    database_url: str = "postgresql+psycopg://postgres:postgres@db:5432/travel_card"
+    database_url: str = "postgresql+psycopg://postgres:postgres@db:5432/pottery_workshop"
     debug: bool = False
     seed_database: bool = True
 

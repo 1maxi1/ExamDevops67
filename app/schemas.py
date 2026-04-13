@@ -1,21 +1,20 @@
 from pydantic import BaseModel, ConfigDict, Field
 
 
-class MetroChangeResponse(BaseModel):
+class WorkshopClassResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
-    description: str
-    affected_line: str
+    name: str
+    price: int
 
 
-class BalanceRequest(BaseModel):
-    phone: str = Field(min_length=5, max_length=20)
+class RegistrationRequest(BaseModel):
     sms_code: str = Field(min_length=1, max_length=10)
 
 
-class BalanceResponse(BaseModel):
-    ticket_id: int
-    phone: str
-    balance: int
-    last_entry_station: str
+class RegistrationResponse(BaseModel):
+    registration_id: int
+    sms_code: str
+    workshop_name: str
+    registration_time: str

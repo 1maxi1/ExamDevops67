@@ -13,8 +13,8 @@ from app.database import (
     get_db_session,
     init_db,
 )
-from app.models import MetroChange, TravelCard
-from app.schemas import BalanceRequest, BalanceResponse, MetroChangeResponse
+from app.models import WorkshopClass, WorkshopRegistration
+from app.schemas import RegistrationRequest, RegistrationResponse, WorkshopClassResponse
 from app.seed import seed_initial_data
 
 STATIC_DIR = Path(__file__).parent / "static"
@@ -51,39 +51,38 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return {"status": "ok"}
 
     @app.get(
-        f"{app_settings.api_prefix}/metro/changes",
-        response_model=list[MetroChangeResponse],
-        tags=["metro"],
+        f"{app_settings.api_prefix}/workshops",
+        response_model=list[WorkshopClassResponse],
+        tags=["workshops"],
     )
-    def get_metro_changes(db: Session = Depends(get_db_session)) -> list[MetroChange]:
-        return list(db.scalars(select(MetroChange).order_by(MetroChange.id)).all())
+    def get_workshop_classes(db: Session = Depends(get_db_session)) -> list[WorkshopClass]:
+        return list(db.scalars(select(WorkshopClass).order_by(WorkshopClass.id)).all())
 
     @app.post(
-        f"{app_settings.api_prefix}/travel-card/balance",
-        response_model=BalanceResponse,
-        tags=["travel-card"],
+        f"{app_settings.api_prefix}/registrations/info",
+        response_model=RegistrationResponse,
+        tags=["registrations"],
     )
-    def get_travel_card_balance(
-        payload: BalanceRequest,
+    def get_workshop_registration(
+        payload: RegistrationRequest,
         db: Session = Depends(get_db_session),
-    ) -> BalanceResponse:
-        travel_card = db.scalar(
-            select(TravelCard).where(
-                TravelCard.phone == payload.phone,
-                TravelCard.sms_code == payload.sms_code,
+    ) -> RegistrationResponse:
+        registration = db.scalar(
+            select(WorkshopRegistration).where(
+                WorkshopRegistration.sms_code == payload.sms_code,
             )
         )
-        if travel_card is None:
+        if registration is None:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid phone number or SMS code",
+                detail="Invalid SMS code",
             )
 
-        return BalanceResponse(
-            ticket_id=travel_card.id,
-            phone=travel_card.phone,
-            balance=travel_card.balance,
-            last_entry_station=travel_card.last_entry_station,
+        return RegistrationResponse(
+            registration_id=registration.id,
+            sms_code=registration.sms_code,
+            workshop_name=registration.workshop_name,
+            registration_time=registration.registration_time,
         )
 
     return app
