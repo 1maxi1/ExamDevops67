@@ -8,3 +8,5 @@ __pycache__
 tests
 rules.pdf
 ticket21.pdf
+ticket22.pdf
+*.docx

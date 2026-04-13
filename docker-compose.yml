@@ -2,6 +2,7 @@ services:
   db:
     image: postgres:16-alpine
     container_name: examdevops6-db
+    restart: unless-stopped
     environment:
       POSTGRES_DB: pottery_workshop
       POSTGRES_USER: postgres
@@ -19,6 +20,7 @@ services:
   api:
     build: .
     container_name: examdevops6-api
+    restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy

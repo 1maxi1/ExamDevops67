@@ -6,6 +6,7 @@
     <groupId>examdevops6</groupId>
     <artifactId>teamcity-settings</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <!-- TeamCity Kotlin DSL support files -->
 
     <properties>
         <teamcity.dsl.version>2025.11</teamcity.dsl.version>

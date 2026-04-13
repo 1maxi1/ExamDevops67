@@ -1,3 +1,5 @@
+// TeamCity Kotlin DSL template for the ticket 22 project.
+
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
@@ -8,7 +10,7 @@ version = "2025.11"
 project {
     params {
         param("student.tag", "StudentIO")
-        param("env.DOCKER_IMAGE", "replace-me/travel-card-service")
+        param("env.DOCKER_IMAGE", "replace-me/pottery-workshop-service")
         param("env.DOCKER_USER", "")
         password("env.DOCKER_PASSWORD", "credentialsJSON:******")
         param("env.PROD_COMPOSE_PATH", "/opt/travel-card-service")

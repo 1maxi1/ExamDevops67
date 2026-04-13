@@ -84,3 +84,8 @@ python -m ruff check .
 python -m bandit -r app
 python -m pytest
 ```
+
+## Notes
+
+- The main branch is used for the deployment pipeline in TeamCity.
+- Feature and fix branches are intended for build-and-check runs without deploy.
