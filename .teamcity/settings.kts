@@ -1,4 +1,4 @@
-// TeamCity Kotlin DSL template for the ticket 22 project.
+// TeamCity Kotlin DSL template for the pottery workshop ticket 22 project.
 
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildSteps.script
@@ -13,7 +13,7 @@ project {
         param("env.DOCKER_IMAGE", "replace-me/pottery-workshop-service")
         param("env.DOCKER_USER", "")
         password("env.DOCKER_PASSWORD", "credentialsJSON:******")
-        param("env.PROD_COMPOSE_PATH", "/opt/travel-card-service")
+        param("env.PROD_COMPOSE_PATH", "/opt/pottery-workshop-service")
     }
 
     vcsRoot(ExamDevops6Vcs)
